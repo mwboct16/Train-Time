@@ -62,6 +62,7 @@ $("#add-train-btn").on("click", function (event) {
         // Time stamps        
         var tTimeConverted = moment(tTime, "HH:mm A").subtract(1, "years");
         console.log(tTimeConverted);
+        console.log(tTime);
 
         var currentTime = moment();
 
@@ -74,8 +75,6 @@ $("#add-train-btn").on("click", function (event) {
         var tMinutesUntilTrain = tFrequency - tRemainder;
         console.log(tMinutesUntilTrain);
 
-        
-
         var nextArrival = currentTime.add(tMinutesUntilTrain, "minutes").format("hh:mm A");
         console.log(nextArrival);
 
@@ -84,10 +83,9 @@ $("#add-train-btn").on("click", function (event) {
             $("<td>").text(tDestination),
             $("<td>").text(tFrequency),
             $("<td>").text(nextArrival),   
-            $("<td>").text(tRemainder) 
+            $("<td>").html(tMinutesUntilTrain) 
         );
-
-
+        
 
 
     $("#train-schedule").append(newRow);
