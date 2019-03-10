@@ -59,17 +59,43 @@ $("#add-train-btn").on("click", function (event) {
         var tTime = childSnapshot.val().time;
         var tFrequency = childSnapshot.val().frequency;
 
+        // Time stamps        
+        var tTimeConverted = moment(tTime, "HH:mm A").subtract(1, "years");
+        console.log(tTimeConverted);
+
+        var currentTime = moment();
+
+        var diffTime = currentTime.diff(moment(tTimeConverted), "minutes");
+            console.log(diffTime);
+
+        var tRemainder = diffTime % tFrequency;
+        console.log(tRemainder);
+        
+        var tMinutesUntilTrain = tFrequency - tRemainder;
+        console.log(tMinutesUntilTrain);
+
+        
+
+        var nextArrival = currentTime.add(tMinutesUntilTrain, "minutes").format("hh:mm A");
+        console.log(nextArrival);
+
         var newRow = $("<tr>").append(
             $("<td>").text(trainName),
             $("<td>").text(tDestination),
-            $("<td>").text(tTime),
-            $("<td>").text(tFrequency)
+            $("<td>").text(tFrequency),
+            $("<td>").text(nextArrival),   
+            $("<td>").text(tRemainder) 
         );
+
+
+
 
     $("#train-schedule").append(newRow);
         }, function(errorObject) {
-            console.log("Errors handled: " + errorObject.code);
+            console.log("Errors handled: " + errorObject.code); 
     });
+
+
     
 
 
